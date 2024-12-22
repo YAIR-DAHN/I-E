@@ -3,495 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>החתונה של גיל ורחל</title>
+    <title>החתונה של יצחק ואפרת</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="icon" href="./img/logo.png" type="image/png">
+    <link rel="stylesheet" href="modal.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
         
+        /* צשתני עיצוב גלובליים */
         :root {
-            --primary-color: #B5A397;
-            --secondary-color: #8B7355;
-            --text-color: #4A4A4A;
-            --background-color: #fff;
-            --gold-color: #9C8B7D;
-            --gold-gradient: linear-gradient(135deg, #B5A397 0%, #8B7355 100%);
+            --primary-color: #c7a55d;
+            --secondary-color: #2c3e50;
+            --background-color: #f9f7f3;
+            --text-color: #2c3e50;
+            --main-font: 'Rubik', sans-serif;
+            --gold-gradient: linear-gradient(135deg, #c7a55d 0%, #e2c992 50%, #c7a55d 100%);
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
+        /* עיצוב כללי */
         body {
-            font-family: 'Heebo', sans-serif;
-            color: var(--text-color);
-            line-height: 1.6;
             margin: 0;
             padding: 0;
+            background: var(--background-color);
+            font-family: var(--main-font);
+            direction: rtl;
+            background-image: url('./img/background.gif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-            background: url('./img/background.gif') center/cover fixed;
-        }
-
-        /* שכבת אופקיות משופרת */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.5);
-            z-index: 0;
-        }
-
-        /* אופטימיזציה למובייל */
-        @media (max-width: 768px) {
-            body {
-                background-attachment: scroll; /* ביצועים טובים יותר במובייל */
-            }
-        }
-
-        /* טיפול ביחסי מסך שונים */
-        @media (max-aspect-ratio: 16/9) {
-            body {
-                background-size: auto 100%;
-            }
-        }
-
-        /* טיפול במסכים גדולים */
-        @media (min-width: 1920px) {
-            body {
-                background-size: cover;
-            }
         }
 
         .container {
-            opacity: 0;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
+            padding: 2rem;
             text-align: center;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            animation: fadeInPage 1s ease forwards;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 2rem auto;
+            max-width: 1200px;
         }
 
-        .logo {
-            opacity: 0;
-            width: 150px;
-            height: auto;
-            margin: 0 auto 20px;
-            display: block;
-            animation: fadeInDown 1s ease 0.3s forwards;
-        }
-
+        /* כותרת ראשית */
         .couple-names {
-            opacity: 0;
-            font-size: 4rem;
+            font-size: 3.5rem;
+            margin: 2rem 0;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 20px 0;
-            font-weight: 400;
-            line-height: 1.2;
-            animation: fadeInDown 1s ease 0.6s forwards;
+            font-weight: 700;
         }
 
         .getting-married {
-            opacity: 0;
-            font-size: 1.5rem;
-            color: var(--text-color);
-            margin: 10px 0 30px;
-            animation: fadeInDown 1s ease 0.9s forwards;
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
         }
 
+        /* תאריך ומיקום */
         .date-location {
-            opacity: 0;
-            background: var(--gold-gradient);
-            color: white;
-            padding: 30px;
-            border-radius: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 1s ease 1.2s forwards;
+            margin: 3rem 0;
+            line-height: 1.8;
         }
 
         .date-location h2 {
             font-size: 2rem;
-            margin-bottom: 20px;
-            font-weight: 400;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
 
         .date-location p {
             font-size: 1.2rem;
-            margin: 10px 0;
+            color: var(--secondary-color);
+            margin: 0.5rem 0;
         }
 
+        /* ספירה לאחור */
         .countdown {
-            opacity: 0;
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin: 30px 0;
-            padding: 20px;
-            animation: fadeInUp 1s ease 1.5s forwards;
+            gap: 2rem;
+            margin: 3rem 0;
         }
 
         .countdown-item {
-            text-align: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            min-width: 100px;
+            border: 1px solid rgba(199, 165, 93, 0.2);
         }
 
         .countdown-number {
-            font-size: 3.5rem;
-            color: var(--gold-color);
-            font-weight: 300;
-            line-height: 1;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
         .countdown-label {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            margin-top: 5px;
+            color: var(--secondary-color);
+            font-size: 1rem;
         }
 
-        .rsvp-button-container {
-            margin: 20px 0;
-            animation: fadeIn 1s ease 1.4s both;
-        }
-
-        .rsvp-button {
-            opacity: 0;
-            background: var(--gold-gradient);
-            color: white;
-            padding: 20px 50px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.4rem;
-            cursor: pointer;
-            margin: 20px auto;
-            display: block;
-            width: 80%;
-            max-width: 400px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 1s ease 1.8s forwards;
-        }
-
-        .rsvp-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
+        /* כפתורי פעולה */
         .actions {
-            opacity: 0;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 20px auto;
-            max-width: 600px;
-            padding: 0 20px;
-            animation: fadeInUp 1s ease 2.1s forwards;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
         .action-button {
-            background-color: white;
-            color: var(--gold-color);
-            padding: 12px 20px;
-            border: 2px solid var(--gold-color);
-            border-radius: 50px;
-            font-size: 1rem;
+            background: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
             cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+            gap: 0.5rem;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(199, 165, 93, 0.2);
         }
 
         .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .action-button i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        /* כפתור RSVP */
+        .rsvp-button {
             background: var(--gold-gradient);
             color: white;
-            border-color: transparent;
-            transform: translateY(-2px);
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 2rem 0;
+            box-shadow: var(--box-shadow);
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .rsvp-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(199, 165, 93, 0.3);
         }
 
+        .rsvp-button i {
+            margin-left: 0.5rem;
+        }
+
+        /* התאמה לנייד */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 1rem;
             }
 
             .couple-names {
-                font-size: 2.8rem;
-            }
-
-            .countdown {
-                gap: 20px;
-            }
-
-            .countdown-number {
                 font-size: 2.5rem;
             }
 
+            .countdown {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .countdown-item {
+                min-width: 80px;
+                padding: 1rem;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
             .actions {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .rsvp-button::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--gold-gradient);
-            z-index: -1;
-            border-radius: 50px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .rsvp-button:hover::after {
-            opacity: 1;
-        }
-
-        /* סגנונות למודל */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0);
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.3s ease;
-        }
-
-        .modal.show .modal-content {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* כפתור סגירה */
-        .close-button {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--text-color);
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .close-button:hover {
-            transform: rotate(90deg);
-            color: var(--gold-color);
-        }
-
-        /* עיצוב הטופס */
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-color);
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="tel"],
-        .form-group input[type="number"],
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--gold-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(156, 139, 125, 0.1);
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .radio-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        .radio-label input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--gold-color);
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .submit-button,
-        .cancel-button {
-            flex: 1;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-button {
-            background: var(--gold-gradient);
-            color: white;
-        }
-
-        .cancel-button {
-            background: #f5f5f5;
-            color: var(--text-color);
-        }
-
-        .submit-button:hover,
-        .cancel-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* התאמה למובייל */
-        @media (max-width: 768px) {
-            .modal-content {
-                padding: 30px 20px;
+                flex-wrap: wrap;
             }
 
-            .form-actions {
-                flex-direction: column;
-            }
-
-            .submit-button,
-            .cancel-button {
+            .action-button {
                 width: 100%;
+                justify-content: center;
             }
         }
 
-        /* אנימציות מחדש */
-        @keyframes fadeInPage {
-            from {
-                opacity: 0;
+        /* עיצוב הלוגו */
+        .logo {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        /* רקע */
+        body {
+            background-image: url('./img/background.gif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        /* שיפורים לתצוגת נייד */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
             }
-            to {
-                opacity: 1;
+
+            .logo {
+                max-width: 150px;
+                margin: 1rem auto;
+            }
+
+            .couple-names {
+                font-size: 2.5rem;
+            }
+
+            .countdown {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .countdown-item {
+                min-width: unset;
+            }
+
+            /* שיפור תצוגת הכפתורים */
+            .actions {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+                padding: 0 0.5rem;
+            }
+
+            .action-button {
+                width: 100%;
+                padding: 0.8rem;
+                font-size: 0.9rem;
+                flex-direction: column;
+                gap: 0.3rem;
+                text-align: center;
+            }
+
+            .action-button i {
+                font-size: 1.5rem;
             }
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+        /* התאמות נוספות למסכים קטנים מאוד */
+        @media (max-width: 360px) {
+            .actions {
+                grid-template-columns: repeat(2, 1fr);
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .action-button {
+                padding: 0.7rem;
+                font-size: 0.8rem;
+            }
+
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .countdown-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            font-weight: 500;
         }
 
-        /* Reduce animations on mobile */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
+        /* כפתור RSVP */
+        .rsvp-text {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin: 2rem 0 1rem;
+            text-align: center;
         }
     </style>
 </head>
@@ -509,6 +328,8 @@
             <p>רחוב הירקונים 58 פ"ת</p>
             <p>חופה אי"ה בשעה 19:30</p>
         </section>
+
+        <h3 class="countdown-title">האירוע יתקיים בעוד</h3>
 
         <div class="countdown">
             <div class="countdown-item">
@@ -529,6 +350,7 @@
             </div>
         </div>
 
+        <p class="rsvp-text">לצורך הערכות נשמח אם תאשרו הגעתכם</p>
         <div class="rsvp-button-container">
             <button class="rsvp-button" onclick="showRSVPForm()">
                 <i class="far fa-check-circle"></i>
@@ -537,7 +359,7 @@
         </div>
 
         <div class="actions">
-            <button class="action-button" onclick="window.open('https://www.waze.com/he/live-map/directions/il/%D7%9E%D7%97%D7%95%D7%96-%D7%94%D7%9E%D7%A8%D7%9B%D7%96/%D7%A4%D7%AA/58-%D7%92%D7%9F-%D7%90%D7%99%D7%A8%D7%95%D7%A2%D7%99%D7%9D?navigate=yes&to=place.ChIJG1cQcoo3HRUR2_WTdTdihbw')">
+            <button class="action-button" onclick="window.open('https://waze.com/ul?ll=32.089147,34.887985&navigate=yes')">
                 <i class="fab fa-waze"></i>
                 Waze
             </button>
@@ -564,6 +386,10 @@
                 <div class="form-group">
                     <label for="phone">טלפון:</label>
                     <input type="tel" id="phone" name="phone" required>
+                    <div id="phone-help" class="help-text" style="display: none;">
+                        המספר לא נכון? מוזמנים לערוך אותו
+                    </div>
+                    <div id="phone-error" class="error-text"></div>
                 </div>
                 <div class="form-group">
                     <label>האם תגיעו לשמוח איתנו?</label>
@@ -573,17 +399,30 @@
                             <span>מגיע/ה</span>
                         </label>
                         <label class="radio-label">
+                            <input type="radio" name="attendance" value="אולי">
+                            <span>אולי</span>
+                        </label>
+                        <label class="radio-label">
                             <input type="radio" name="attendance" value="לא מגיע/ה">
                             <span>לא מגיע/ה</span>
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="guests">מספר אורחים:</label>
-                    <input type="number" id="guests" name="guests" min="1" max="10" value="1" required>
+                <div class="form-group guests-control" style="display: none;" id="guestsSection">
+                    <label>מספר אורחים:</label>
+                    <div class="guests-input-group">
+                        <button type="button" class="guest-btn minus" onclick="updateGuests(-1)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span id="guests" class="guests-number">1</span>
+                        <input type="hidden" name="guests" id="guests-hidden" value="1">
+                        <button type="button" class="guest-btn plus" onclick="updateGuests(1)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="notes">הערות:</label>
+                    <label for="notes">איחולים והערות:</label>
                     <textarea id="notes" name="notes" rows="3"></textarea>
                 </div>
                 <div class="form-actions">
@@ -660,6 +499,55 @@
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
+                // איפוס שגיאות קודמות
+                document.querySelectorAll('.error-text').forEach(err => err.style.display = 'none');
+                document.querySelectorAll('input').forEach(input => input.classList.remove('error'));
+                
+                let hasErrors = false;
+                
+                // ולידציה של שם
+                const nameInput = document.getElementById('name');
+                if (!validateName(nameInput.value)) {
+                    nameInput.classList.add('error');
+                    const errorDiv = nameInput.nextElementSibling || document.createElement('div');
+                    errorDiv.className = 'error-text';
+                    errorDiv.textContent = 'נא להזין לפחות 2 תווים';
+                    errorDiv.style.display = 'block';
+                    if (!nameInput.nextElementSibling) {
+                        nameInput.parentNode.appendChild(errorDiv);
+                    }
+                    hasErrors = true;
+                }
+                
+                // ולידציה של טלפון
+                const phoneInput = document.getElementById('phone');
+                if (!validatePhone(phoneInput.value)) {
+                    phoneInput.classList.add('error');
+                    document.getElementById('phone-error').textContent = 'נראה שיש טעות במספר הטלפון, כדאי לעבור עליו שוב';
+                    document.getElementById('phone-error').style.display = 'block';
+                    hasErrors = true;
+                }
+                
+                // ולידציה של סטטוס הגעה
+                const attendance = document.querySelector('input[name="attendance"]:checked');
+                if (!attendance) {
+                    const radioGroup = document.querySelector('.radio-group');
+                    const errorDiv = radioGroup.nextElementSibling || document.createElement('div');
+                    errorDiv.className = 'error-text';
+                    errorDiv.textContent = 'נא לבחור סטטוס הגעה';
+                    errorDiv.style.display = 'block';
+                    if (!radioGroup.nextElementSibling) {
+                        radioGroup.parentNode.appendChild(errorDiv);
+                    }
+                    hasErrors = true;
+                }
+                
+                // אם יש שגיאות - מפסיקים כאן
+                if (hasErrors) {
+                    return false; // מניעת שליחת הטופס
+                }
+
+                // אם אין שגיאות - ממשיכים עם שליחת הטופס
                 const submitButton = form.querySelector('.submit-button');
                 const originalText = submitButton.textContent;
                 submitButton.textContent = 'שולח...';
@@ -672,13 +560,11 @@
                     attendance: formData.get('attendance'),
                     guests: formData.get('guests'),
                     notes: formData.get('notes'),
-                    guestId: guestId || 'new' // אם אין guestId, זה רישום חדש
+                    guestId: guestId || 'new'
                 };
                 
-                console.log('Sending data:', data);
-
                 try {
-                    const response = await fetch('https://script.google.com/macros/s/AKfycbwxTJ5mmJnZMVFpF_o6SDTvri8l3U2XjVrJX4JCt-AEP7TESM83CdIoNHmPmuv2-VKi/exec', {
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbwe-J-axNWAFAJNG3MWjCb1zUqN2wBXCn5gmiCXPlaQI7uNcbgzmhr_kerSaDF10OqE/exec', {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: {
@@ -715,36 +601,36 @@
         async function loadExistingData() {
             if (guestId && guestId !== 'new') {
                 try {
+                    console.log('Starting to load data for guestId:', guestId);
                     const script = document.createElement('script');
                     const callbackName = 'jsonpCallback_' + Math.random().toString(36).substr(2, 9);
                     
-                    // הוספת לוג לדיבוג
+                    // הגדרת הפונקציה שתקבל את התגובה
                     window[callbackName] = function(data) {
-                        console.log('Received data:', data);
+                        console.log('Response received:', data);
                         
-                        if (data && data.phone) {  // בדיקה שיש נתונים ומספר טלפון
+                        if (data && data.status === 'success') {
                             const phoneInput = document.getElementById('phone');
-                            const guestsInput = document.getElementById('guests');
-                            
-                            if (phoneInput) {
+                            if (phoneInput && data.phone) {
                                 phoneInput.value = data.phone;
-                                console.log('Setting phone:', data.phone);
+                                console.log('Phone set to:', data.phone);
+                                // הצגת הודעת העזרה
+                                document.getElementById('phone-help').style.display = 'block';
                             }
                             
+                            const guestsInput = document.getElementById('guests');
                             if (guestsInput && data.guests) {
                                 guestsInput.value = data.guests;
-                                console.log('Setting guests:', data.guests);
                             }
                             
                             if (data.attendance) {
                                 const radioBtn = document.querySelector(`input[value="${data.attendance}"]`);
                                 if (radioBtn) {
                                     radioBtn.checked = true;
-                                    console.log('Setting attendance:', data.attendance);
                                 }
                             }
                         } else {
-                            console.log('No data or phone number received');
+                            console.error('Error loading data:', data);
                         }
                         
                         // ניקוי
@@ -752,16 +638,11 @@
                         delete window[callbackName];
                     };
 
-                    script.src = `https://script.google.com/macros/s/AKfycbwxTJ5mmJnZMVFpF_o6SDTvri8l3U2XjVrJX4JCt-AEP7TESM83CdIoNHmPmuv2-VKi/exec?id=${guestId}&callback=${callbackName}`;
-                    console.log('Loading data from:', script.src);
+                    // שימוש ב-URL המלא של הסקריפט
+                    const scriptUrl = `https://script.google.com/macros/s/AKfycbwe-J-axNWAFAJNG3MWjCb1zUqN2wBXCn5gmiCXPlaQI7uNcbgzmhr_kerSaDF10OqE/exec?id=${guestId}&callback=${callbackName}`;
+                    console.log('Requesting from:', scriptUrl);
                     
-                    // הוספת טיפול בשגיאות טעינת הסקריפט
-                    script.onerror = function() {
-                        console.error('Failed to load script');
-                        document.body.removeChild(script);
-                        delete window[callbackName];
-                    };
-                    
+                    script.src = scriptUrl;
                     document.body.appendChild(script);
                     
                 } catch (error) {
@@ -786,12 +667,18 @@
         // פונקציות לטיפול במודל
         function showRSVPForm() {
             const modal = document.getElementById('rsvpModal');
-            modal.classList.add('show');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 10);
         }
 
         function closeModal() {
             const modal = document.getElementById('rsvpModal');
             modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
         }
 
         // סגירת המודל בלחיצה מחוץ לתוכן
@@ -857,7 +744,9 @@
         // טעינת נתונים בעת טעינת העמוד
         document.addEventListener('DOMContentLoaded', () => {
             console.log('Page loaded, guestId:', guestId);
-            loadExistingData();
+            if (guestId) {
+                loadExistingData();
+            }
         });
 
         // Optimize animations performance
@@ -875,6 +764,124 @@
             img.onload = function() {
                 document.body.classList.add('bg-loaded');
             };
+        });
+
+        function updateGuests(change) {
+            const guestsSpan = document.getElementById('guests');
+            const guestsInput = document.getElementById('guests-hidden');
+            let currentGuests = parseInt(guestsSpan.textContent);
+            
+            // הגבלת טווח המספרים בין 1 ל-10
+            currentGuests = Math.min(Math.max(currentGuests + change, 1), 10);
+            
+            guestsSpan.textContent = currentGuests;
+            guestsInput.value = currentGuests;
+            
+            // אנימציה קטנה
+            guestsSpan.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                guestsSpan.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // ולידציה של מספר טלפון ישראלי
+        function validatePhone(phone) {
+            const phoneRegex = /^05\d{8}$|^07\d{8}$|^0[23468]\d{7}$/;
+            return phoneRegex.test(phone);
+        }
+
+        // ולידציה של שם
+        function validateName(name) {
+            return name.trim().length >= 2;
+        }
+
+        // טיפול בשינוי סטטוס הגעה
+        document.querySelectorAll('input[name="attendance"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const guestsSection = document.getElementById('guestsSection');
+                if (this.value === 'מגיע/ה' || this.value === 'אולי') {
+                    guestsSection.style.display = 'block';
+                } else {
+                    guestsSection.style.display = 'none';
+                }
+            });
+        });
+
+        // עדכון פונקציית loadExistingData
+        async function loadExistingData() {
+            if (guestId && guestId !== 'new') {
+                try {
+                    // ... הקוד הקיים ...
+                    window[callbackName] = function(data) {
+                        if (data && data.status === 'success') {
+                            const phoneInput = document.getElementById('phone');
+                            if (phoneInput && data.phone) {
+                                phoneInput.value = data.phone;
+                                // הצגת הודעת העזרה
+                                document.getElementById('phone-help').style.display = 'block';
+                            }
+                            // ... שאר הקוד הקיים ...
+                        }
+                    };
+                    // ... המשך הקוד הקיים ...
+                } catch (error) {
+                    console.error('Error in loadExistingData:', error);
+                }
+            }
+        }
+
+        // עדכון הטיפול בשליחת הטופס
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // איפוס שגיאות קודמות
+            document.querySelectorAll('.error-text').forEach(err => err.style.display = 'none');
+            document.querySelectorAll('input').forEach(input => input.classList.remove('error'));
+            
+            let hasErrors = false;
+            
+            // ולידציה של שם
+            const nameInput = document.getElementById('name');
+            if (!validateName(nameInput.value)) {
+                nameInput.classList.add('error');
+                const errorDiv = nameInput.nextElementSibling || document.createElement('div');
+                errorDiv.className = 'error-text';
+                errorDiv.textContent = 'נא להזין לפחות 2 תווים';
+                errorDiv.style.display = 'block';
+                if (!nameInput.nextElementSibling) {
+                    nameInput.parentNode.appendChild(errorDiv);
+                }
+                hasErrors = true;
+            }
+            
+            // ולידציה של טלפון
+            const phoneInput = document.getElementById('phone');
+            if (!validatePhone(phoneInput.value)) {
+                phoneInput.classList.add('error');
+                document.getElementById('phone-error').textContent = 'נראה שיש טעות במספר הטלפון, כדאי לעבור עליו שוב';
+                document.getElementById('phone-error').style.display = 'block';
+                hasErrors = true;
+            }
+            
+            // ולידציה של סטטוס הגעה
+            const attendance = document.querySelector('input[name="attendance"]:checked');
+            if (!attendance) {
+                const radioGroup = document.querySelector('.radio-group');
+                const errorDiv = radioGroup.nextElementSibling || document.createElement('div');
+                errorDiv.className = 'error-text';
+                errorDiv.textContent = 'נא לבחור סטטוס הגעה';
+                errorDiv.style.display = 'block';
+                if (!radioGroup.nextElementSibling) {
+                    radioGroup.parentNode.appendChild(errorDiv);
+                }
+                hasErrors = true;
+            }
+            
+            if (hasErrors) {
+                return;
+            }
+            
+            // המשך הקוד הקיים לשליחת הטופס...
         });
     </script>
 </body>
