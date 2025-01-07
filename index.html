@@ -43,6 +43,7 @@
             padding: 2rem;
             text-align: center;
             background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             margin: 2rem auto;
@@ -225,6 +226,7 @@
 
         .container {
             background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 2rem;
@@ -312,6 +314,85 @@
             margin: 2rem 0 1rem;
             text-align: center;
         }
+
+        /* עיצוב שמות ההורים */
+        .parents-names {
+            text-align: center;
+            margin: 1rem 0;
+            color: #1a1a1a;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .groom-parents, .bride-parents {
+            margin: 0.3rem 0;
+            opacity: 0.9;
+        }
+
+        /* התאמה למובייל */
+        @media (max-width: 768px) {
+            .parents-names {
+                font-size: 1rem;
+            }
+        }
+
+        /* עיצוב טקסט ההזמנה ושמות ההורים */
+        .invitation-text {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin: 2rem 0;
+            font-weight: 500;
+        }
+        
+        .parents-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            gap: 2rem;
+        }
+        
+        .parents-column {
+            text-align: center;
+        }
+        
+        .parents-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .parents-names {
+            color: #1a1a1a;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        /* התאמה למובייל */
+        @media (max-width: 768px) {
+            .parents-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .invitation-text {
+                font-size: 1.2rem;
+                margin: 1.5rem 0;
+            }
+
+            .parents-names {
+                font-size: 1.4rem;
+            }
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.3rem;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -320,10 +401,23 @@
             <img src="./img/logo.png" alt="לוגו החתונה" class="logo">
             <h1 class="couple-names">יצחק & אפרת</h1>
             <div class="getting-married">מתחתנים</div>
+
+            <div class="invitation-text">נשמח לראותכם משתתפים בשמחתנו</div>  
+
+            <div class="parents-container">
+                <div class="parents-column">
+                    <div class="parents-title">הורי החתן</div>
+                    <div class="parents-names">גילי ורינת רחמים</div>
+                </div>
+                <div class="parents-column">
+                    <div class="parents-title">הורי הכלה</div>
+                    <div class="parents-names">רחלי גואטה</div>
+                </div>
+            </div>
         </header>
 
         <section class="date-location">
-            <h2>יום רביעי כ"ט שבט | 29.01.25</h2>
+            <h2>יום רביעי כ"ט טבת | 29.01.25</h2>
             <p>באולמי 58 פתח תקווה</p>
             <p>רחוב הירקונים 58 פ"ת</p>
             <p>חופה אי"ה בשעה 19:30</p>
@@ -563,15 +657,13 @@
                     return false; // מניעת שליחת הטופס
                 }
 
-                // הצגת אנימציית טעינה
                 const loadingAnimation = showLoadingAnimation();
                 
                 try {
-                    const submitButton = form.querySelector('.submit-button');
-                    const originalText = submitButton.textContent;
-                    submitButton.disabled = true;
-
                     const formData = new FormData(form);
+                    const originalName = document.getElementById('name').getAttribute('data-original');
+                    const currentName = formData.get('name');
+                    
                     const data = {
                         name: formData.get('name'),
                         phone: formData.get('phone'),
@@ -580,8 +672,13 @@
                         notes: formData.get('notes'),
                         guestId: guestId || 'new'
                     };
+
+                    // הוספת הערה אם השם שונה
+                    if (originalName && currentName !== originalName) {
+                        data.notes = (data.notes ? data.notes + '\n' : '') + `שם מקורי: ${originalName}`;
+                    }
                     
-                    const response = await fetch('https://script.google.com/macros/s/AKfycbwe-J-axNWAFAJNG3MWjCb1zUqN2wBXCn5gmiCXPlaQI7uNcbgzmhr_kerSaDF10OqE/exec', {
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbyT2w7fK5gwPkGkKTLaNSgMYVJJsEGJTOEQo1VQex2_xFMu_PFp3og6l9lBGEhU_pXS/exec', {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: {
@@ -620,16 +717,25 @@
                     const script = document.createElement('script');
                     const callbackName = 'jsonpCallback_' + Math.random().toString(36).substr(2, 9);
                     
-                    // הגדרת הפונקציה שתקבל את התגובה
                     window[callbackName] = function(data) {
                         console.log('Response received:', data);
                         
                         if (data && data.status === 'success') {
+                            const nameInput = document.getElementById('name');
+                            if (nameInput && data.name) {
+                                nameInput.value = data.name;
+                                // הוספת טקסט עזרה לשדה השם
+                                const nameHelp = document.createElement('div');
+                                nameHelp.id = 'name-help';
+                                nameHelp.className = 'help-text';
+                                nameHelp.textContent = 'השם לא מדויק? מוזמנים לערוך אותו';
+                                nameHelp.style.display = 'block';
+                                nameInput.parentNode.appendChild(nameHelp);
+                            }
+                            
                             const phoneInput = document.getElementById('phone');
                             if (phoneInput && data.phone) {
                                 phoneInput.value = data.phone;
-                                console.log('Phone set to:', data.phone);
-                                // הצגת הודעת העזרה
                                 document.getElementById('phone-help').style.display = 'block';
                             }
                             
@@ -653,15 +759,11 @@
                             console.error('Error loading data:', data);
                         }
                         
-                        // ניקוי
                         document.body.removeChild(script);
                         delete window[callbackName];
                     };
 
-                    // שימוש ב-URL המלא של הסקריפט
-                    const scriptUrl = `https://script.google.com/macros/s/AKfycbwe-J-axNWAFAJNG3MWjCb1zUqN2wBXCn5gmiCXPlaQI7uNcbgzmhr_kerSaDF10OqE/exec?id=${guestId}&callback=${callbackName}`;
-                    console.log('Requesting from:', scriptUrl);
-                    
+                    const scriptUrl = `https://script.google.com/macros/s/AKfycbyT2w7fK5gwPkGkKTLaNSgMYVJJsEGJTOEQo1VQex2_xFMu_PFp3og6l9lBGEhU_pXS/exec?id=${guestId}&callback=${callbackName}`;
                     script.src = scriptUrl;
                     document.body.appendChild(script);
                     
@@ -819,10 +921,14 @@
         document.querySelectorAll('input[name="attendance"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 const guestsSection = document.getElementById('guestsSection');
-                if (this.value === 'מגיע/ה' || this.value === 'אולי') {
-                    guestsSection.style.display = 'block';
-                } else {
+                const guestsHidden = document.getElementById('guests-hidden');
+                
+                if (this.value === 'לא מגיע/ה') {
+                    guestsHidden.value = '0';
                     guestsSection.style.display = 'none';
+                } else {
+                    guestsHidden.value = '1';
+                    guestsSection.style.display = 'block';
                 }
             });
         });
@@ -833,13 +939,13 @@
             const animationContainer = document.getElementById('loading-animation');
             container.style.display = 'flex';
             
-            // יצירת אנימציית Lottie
+            // המרת הנתיב לנתיב יחסי
             const animation = lottie.loadAnimation({
                 container: animationContainer,
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
-                path: './img/Animation-load.json'
+                path: 'img/Animation-load.json'
             });
 
             return animation;
@@ -859,6 +965,9 @@
             const animationContainer = document.getElementById('success-animation');
             container.style.display = 'flex';
             
+            // סגירת המודל
+            closeModal();
+            
             const animation = lottie.loadAnimation({
                 container: animationContainer,
                 renderer: 'svg',
@@ -867,11 +976,10 @@
                 path: './img/Animation-OK.json'
             });
 
-            // הסתרת ההודעה אחרי 5 שניות
             setTimeout(() => {
                 animation.destroy();
                 container.style.display = 'none';
-            }, 5000);
+            }, 3000);
 
             return animation;
         }
