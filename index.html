@@ -393,6 +393,106 @@
             margin-top: 0.3rem;
             display: none;
         }
+
+        .footer {
+            margin-top: 3rem;
+            padding: 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(199, 165, 93, 0.2);
+            position: relative;
+        }
+
+        .credits {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .credits-text {
+            margin-right: 0.5rem;
+        }
+
+        .credits-button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .credits-button:hover {
+            color: var(--secondary-color);
+        }
+
+        .contact-info {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(199, 165, 93, 0.3);
+            border-radius: 8px;
+            animation: slideUp 0.3s ease;
+            width: 90%;
+            max-width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info.show {
+            display: block;
+        }
+
+        .contact-item {
+            margin: 0.8rem 0;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background-color: rgba(199, 165, 93, 0.1);
+        }
+
+        .contact-item i {
+            color: var(--primary-color);
+            margin-left: 0.8rem;
+            width: 20px;
+            font-size: 1.1rem;
+        }
+
+        .contact-item a {
+            color: #444;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-color);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 10px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                margin-top: 2rem;
+                padding: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -466,6 +566,28 @@
                 הוסף ליומן
             </button>
         </div>
+
+        <footer class="footer">
+            <div class="credits">
+                <span class="credits-text">אתר זה נבנה ע"י</span>
+                <button onclick="toggleContactInfo()" class="credits-button">Y.D. Systems</button>
+            </div>
+            
+            <div id="contact-info" class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:0583730000">058-3730000</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/972583730000" target="_blank" rel="noopener">058-3730000</a>
+                </div>
+                <div class="contact-item">
+                    <i class="far fa-envelope"></i>
+                    <a href="mailto:yairdahn@gmail.com">yairdahn@gmail.com</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <!-- הוספת המודל לDOM -->
@@ -982,6 +1104,11 @@
             }, 3000);
 
             return animation;
+        }
+
+        function toggleContactInfo() {
+            const contactInfo = document.getElementById('contact-info');
+            contactInfo.classList.toggle('show');
         }
     </script>
 </body>
